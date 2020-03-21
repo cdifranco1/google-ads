@@ -3,27 +3,39 @@ import { ListItem, Column, ListGroup } from '../styles/CampaignListStyles'
 import { ListHeadings } from './ListHeadings';
 import { convertToNum, convertToPercentage } from '../utils'
 
-import _ from 'lodash';
+import { sortBy } from 'lodash';
 import axios from 'axios';
 
 
 const path = 'http://localhost:8000'
 const url = `https://fast-refuge-34078.herokuapp.com/api/get-campaigns`
 
-console.log(convertToNum('1000.00%'))
+const SORTS = {
+  NONE: list => list, 
+  ID: list => sortBy(list, 'id'),
+  NAME: list => sortBy(list, 'name'),
+  STATUS: list => sortBy(list, 'status'),
+  TARGET: list => sortBy(list, 'targetRoas'),
+  ID_REVERSE: list => sortBy(list, 'id').reverse(),
+  NAME_REVERSE: list => sortBy(list, 'name').reverse(),
+  STATUS_REVERSE: list => sortBy(list, 'status').reverse(),
+  TARGET_REVERSE: list => sortBy(list, 'targetRoas').reverse()
+}
 
 export const CampaignList = () => {
   const [ campaigns, setCampaigns ] = useState([])
-  const  [ sortColumn, setSortColumn ] = useState('NONE')
-  console.log(campaigns)
+  const  [ sortKey, setSortKey ] = useState('NONE')
 
-  const handleSort = (column) => {
-    setSortColumn(column)
-    console.log(sortColumn)
+  const handleSort = (key) => {
+    if (key === sortKey){
+      setSortKey(`${key}_REVERSE`)
+    } else {
+      setSortKey(key)
+    }
   }
 
-  const sortedCampaigns = _.sortBy(campaigns, sortColumn)
-
+  const sortFunction = SORTS[sortKey]
+  const sortedCampaigns = sortFunction(campaigns)
 
   useEffect(() => {
     axios
