@@ -3,28 +3,31 @@ import { ListHeading, TableHeader } from '../styles/CampaignListStyles'
 import { headingReducer } from '../reducers/headingReducer';
 
 
-export const ListHeadings = () => {
-  const [ tableHeadings, dispatch ] = useReducer(headingReducer, {
-    id: {
-      title: 'ID #: ',
-      selected: false
-      }, 
-    name: {
-      title: 'Name: ',
-      selected: false
-      },
-    status: {
-      title: 'Status: ',
-      selected: false
-      },
-    targetRoa: {
-      title: 'Target ROA: ',
-      selected: false
-      }
-  })
+export const initialHeadingState = {
+  id: {
+    title: 'ID # ',
+    selected: false
+    }, 
+  name: {
+    title: 'Name ',
+    selected: false
+    },
+  status: {
+    title: 'Status ',
+    selected: false
+    },
+  targetRoas: {
+    title: 'Target ROA ',
+    selected: false
+    }
+}
 
+export const ListHeadings = ({handleSort}) => {
+  const [ tableHeadings, dispatch ] = useReducer(headingReducer, initialHeadingState)
+  
   const updateSelected = (heading) => {
     dispatch({type: 'SELECT_COLUMN', payload: heading})
+    handleSort(heading)
   }
 
   return (
@@ -41,9 +44,9 @@ export const ListHeadings = () => {
       <ListHeading onClick={() => updateSelected('status')}>&#x25B2;{' '}{tableHeadings.status.title}</ListHeading> :
       <ListHeading onClick={() => updateSelected('status')}>{tableHeadings.status.title}</ListHeading>}
       
-      {tableHeadings.targetRoa.selected ?
-      <ListHeading onClick={() => updateSelected('targetRoa')}>&#x25B2;{' '}{tableHeadings.targetRoa.title}</ListHeading> :
-      <ListHeading onClick={() => updateSelected('targetRoa')}>{tableHeadings.targetRoa.title}</ListHeading>}
+      {tableHeadings.targetRoas.selected ?
+      <ListHeading onClick={() => updateSelected('targetRoas')}>&#x25B2;{' '}{tableHeadings.targetRoas.title}</ListHeading> :
+      <ListHeading onClick={() => updateSelected('targetRoas')}>{tableHeadings.targetRoas.title}</ListHeading>}
     </TableHeader>
   )
 }

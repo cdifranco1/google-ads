@@ -1,5 +1,5 @@
 
-
+import { initialHeadingState } from '../components/ListHeadings'
 
 
 export const headingReducer = (state, action) => {
@@ -8,7 +8,7 @@ export const headingReducer = (state, action) => {
   switch(action.type){
     case 'SELECT_COLUMN':
       return {
-        ...state,
+        ...initialHeadingState,
         [action.payload]: {
           ...state[action.payload],
           selected: !state[action.payload].selected
