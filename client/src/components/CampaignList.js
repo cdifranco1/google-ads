@@ -1,5 +1,5 @@
 import React, { useState, useReducer, useEffect } from 'react';
-import { ListItem, Column, ListGroup } from '../styles/CampaignListStyles'
+import { ListItem, Column, ListGroup, TableContainer } from '../styles/CampaignListStyles'
 import { ListHeadings } from './ListHeadings';
 import { convertToNum, convertToPercentage } from '../utils'
 
@@ -51,8 +51,9 @@ export const CampaignList = () => {
   }, [])
 
   return (
-    <ListGroup>
+    <TableContainer>
       <ListHeadings handleSort={handleSort} />
+      <ListGroup>
       {sortedCampaigns.map(campaign =>
         <ListItem> 
           <Column>{campaign.id}</Column>
@@ -61,6 +62,7 @@ export const CampaignList = () => {
           <Column>{convertToPercentage(campaign.targetRoas)}</Column>
         </ListItem>
       )}
-    </ListGroup>
+      </ListGroup>
+    </TableContainer>
   )
 }

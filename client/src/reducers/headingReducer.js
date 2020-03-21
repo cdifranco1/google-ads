@@ -1,6 +1,7 @@
 
 import { initialHeadingState } from '../components/ListHeadings'
 
+//make updates to tableHeader for ascending/descending selection
 
 export const headingReducer = (state, action) => {
   switch(action.type){
