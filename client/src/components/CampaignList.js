@@ -27,7 +27,9 @@ export const CampaignList = () => {
   const  [ sortKey, setSortKey ] = useState('NONE')
 
   const handleSort = (key) => {
-    if (key === sortKey){
+    if (sortKey.includes(key) && sortKey.includes('REVERSE')){
+      setSortKey('NONE')
+    } else if (key === sortKey) {
       setSortKey(`${key}_REVERSE`)
     } else {
       setSortKey(key)

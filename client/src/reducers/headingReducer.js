@@ -3,17 +3,28 @@ import { initialHeadingState } from '../components/ListHeadings'
 
 
 export const headingReducer = (state, action) => {
-  console.log(state)
-  console.log(action)
   switch(action.type){
     case 'SELECT_COLUMN':
-      return {
-        ...initialHeadingState,
-        [action.payload]: {
-          ...state[action.payload],
-          selected: !state[action.payload].selected
+      if (state[action.payload].descending){
+        return { ...initialHeadingState }
+      } else if (state[action.payload].ascending || state[action.payload].descending){
+          return {
+          ...initialHeadingState,
+          [action.payload]: {
+            ...state[action.payload],
+            ascending: !state[action.payload].ascending,
+            descending: !state[action.payload].descending
+            }
+          }
+        } else {
+          return {
+            ...initialHeadingState,
+            [action.payload]: {
+              ...state[action.payload],
+              ascending: !state[action.payload].ascending,
+            }
+          }
         }
-      }
     default:
       return state
   }

@@ -6,19 +6,23 @@ import { headingReducer } from '../reducers/headingReducer';
 export const initialHeadingState = {
   id: {
     title: 'ID #',
-    selected: false
+    ascending: false,
+    descending: false
     }, 
   name: {
     title: 'Name',
-    selected: false
+    ascending: false,
+    descending: false
     },
   status: {
     title: 'Status',
-    selected: false
+    ascending: false,
+    descending: false
     },
   targetRoas: {
     title: 'Target ROA',
-    selected: false
+    ascending: false,
+    descending: false
     }
 }
 
@@ -26,26 +30,34 @@ export const ListHeadings = ({handleSort}) => {
   const [ tableHeadings, dispatch ] = useReducer(headingReducer, initialHeadingState)
   
   const updateSelected = (heading) => {
-    dispatch({type: 'SELECT_COLUMN', payload: heading})
+    dispatch({ type: 'SELECT_COLUMN', payload: heading})
   }
 
   return (
     <TableHeader>
-      {tableHeadings.id.selected ?
-      <ListHeading onClick={() => {updateSelected('id'); handleSort('ID')}}>&#x25B2;{' '}{tableHeadings.id.title}</ListHeading> :
-      <ListHeading onClick={() => {updateSelected('id'); handleSort('ID')}}>{tableHeadings.id.title}</ListHeading>}
+      <ListHeading onClick={() => {updateSelected('id'); handleSort('ID')}}>
+        {(tableHeadings.id.ascending && <span>&#x25B2; {' '}</span>) ||
+        (tableHeadings.id.descending && <span>&#x25bc; {' '}</span>)}
+        {tableHeadings.id.title}
+      </ListHeading>
       
-      {tableHeadings.name.selected ?
-      <ListHeading onClick={() => {updateSelected('name'); handleSort('NAME')}}>&#x25B2;{' '}{tableHeadings.name.title}</ListHeading> :
-      <ListHeading onClick={() => {updateSelected('name'); handleSort('NAME')}}>{tableHeadings.name.title}</ListHeading>}
+      <ListHeading onClick={() => {updateSelected('name'); handleSort('NAME')}}>
+        {(tableHeadings.name.ascending && <span>&#x25B2; {' '}</span>) ||
+        (tableHeadings.name.descending && <span>&#x25bc; {' '}</span>)}
+        {tableHeadings.name.title}
+      </ListHeading>
       
-      {tableHeadings.status.selected ?
-      <ListHeading onClick={() => {updateSelected('status'); handleSort('STATUS')}}>&#x25B2;{' '}{tableHeadings.status.title}</ListHeading> :
-      <ListHeading onClick={() => {updateSelected('status'); handleSort('STATUS')}}>{tableHeadings.status.title}</ListHeading>}
+      <ListHeading onClick={() => {updateSelected('status'); handleSort('STATUS')}}>
+        {(tableHeadings.status.ascending && <span>&#x25B2; {' '}</span>) ||
+        (tableHeadings.status.descending && <span>&#x25bc; {' '}</span>)}
+        {tableHeadings.status.title}
+      </ListHeading>
       
-      {tableHeadings.targetRoas.selected ?
-      <ListHeading onClick={() => {updateSelected('targetRoas'); handleSort('TARGET')}}>&#x25B2;{' '}{tableHeadings.targetRoas.title}</ListHeading> :
-      <ListHeading onClick={() => {updateSelected('targetRoas'); handleSort('TARGET')}}>{tableHeadings.targetRoas.title}</ListHeading>}
+      <ListHeading onClick={() => {updateSelected('targetRoas'); handleSort('TARGET')}}>
+        {(tableHeadings.targetRoas.ascending && <span>&#x25B2; {' '}</span>) ||
+        (tableHeadings.targetRoas.descending && <span>&#x25bc; {' '}</span>)}
+        {tableHeadings.targetRoas.title}
+      </ListHeading>
     </TableHeader>
   )
 }
