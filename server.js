@@ -16,5 +16,9 @@ server.get('/', (req, res) => {
   res.status(200).json(campaigns)
 })
 
+server.post('/campaigns', (req, res) => {
+  res.status(200).json(campaigns)
+})
+
 
 server.listen(port, () => console.log('Listening on port 8000.'))

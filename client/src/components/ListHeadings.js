@@ -20,7 +20,7 @@ export const initialHeadingState = {
     descending: false
     },
   targetRoas: {
-    title: 'Target ROA',
+    title: 'Target ROAS',
     ascending: false,
     descending: false
     }
@@ -58,6 +58,7 @@ export const ListHeadings = ({handleSort}) => {
         (tableHeadings.targetRoas.descending && <span>&#x25bc; {' '}</span>)}
         {tableHeadings.targetRoas.title}
       </ListHeading>
+      <span style={{width: '20%'}}></span>
     </TableHeader>
   )
 }

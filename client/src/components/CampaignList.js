@@ -1,10 +1,12 @@
-import React, { useState, useReducer, useEffect } from 'react';
-import { ListItem, Column, ListGroup, TableContainer } from '../styles/CampaignListStyles'
+import React, { useState, useEffect } from 'react';
+import { ListGroup, TableContainer } from '../styles/CampaignListStyles'
 import { ListHeadings } from './ListHeadings';
-import { convertToNum, convertToPercentage } from '../utils'
+import { convertToNum } from '../utils'
+import { Campaign } from './Campaign'
 
 import { sortBy } from 'lodash';
 import axios from 'axios';
+import axiosRetry from 'axios-retry';
 
 
 const path = 'http://localhost:8000'
@@ -39,6 +41,8 @@ export const CampaignList = () => {
   const sortFunction = SORTS[sortKey]
   const sortedCampaigns = sortFunction(campaigns)
 
+  axiosRetry(axios, { retries: 1})
+
   useEffect(() => {
     axios
       .get(`${path}`)
@@ -55,12 +59,7 @@ export const CampaignList = () => {
       <ListHeadings handleSort={handleSort} />
       <ListGroup>
       {sortedCampaigns.map(campaign =>
-        <ListItem> 
-          <Column>{campaign.id}</Column>
-          <Column>{campaign.name}</Column>
-          <Column>{campaign.status}</Column>
-          <Column>{convertToPercentage(campaign.targetRoas)}</Column>
-        </ListItem>
+        <Campaign campaign={campaign} />
       )}
       </ListGroup>
     </TableContainer>
