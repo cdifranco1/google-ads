@@ -7,6 +7,7 @@ import { Campaign } from './Campaign'
 import { sortBy } from 'lodash';
 import axios from 'axios';
 import axiosRetry from 'axios-retry';
+import { UpdatedCampaigns } from './UpdatedCampaigns';
 
 
 const path = 'http://localhost:8000'
@@ -63,7 +64,7 @@ export const CampaignList = () => {
         )}
         </ListGroup>
       </TableContainer>
-      <button type="submit">Submit Updated Campaigns</button>
+      <UpdatedCampaigns editedCampaigns={editedCampaigns}/>
     </>
   )
 }

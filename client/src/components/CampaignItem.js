@@ -3,23 +3,23 @@ import { convertToPercentage } from '../utils';
 
 import { ListItem, Column, Button } from '../styles/CampaignListStyles';
 
-export const CampaignItem = ({campaign, edit, editedCampaigns}) => {
-  
-  const [edited, setEdited] = useState(() => {
-    if (editedCampaigns.find(el => el.id === campaign.id)){
-      return true
-    } else {
-      return false
-    }
-  })
+export const CampaignItem = (props) => {
+  console.log(props)
+  // const [edited, setEdited] = useState(() => {
+  //   if (props.editedCampaigns.find(el => el.id === props.campaign.id)){
+  //     return true
+  //   } else {
+  //     return false
+  //   }
+  // })
 
   return (
-    <ListItem edited={edited}> 
-      <Column>{campaign.id}</Column>
-      <Column>{campaign.name}</Column>
-      <Column>{campaign.status}</Column>
-      <Column>{convertToPercentage(campaign.targetRoas)}</Column>
-      <Button onClick={edit}>Edit</Button>
+    <ListItem edited={props.edited} > 
+      <Column>{props.campaign.id}</Column>
+      <Column>{props.campaign.name}</Column>
+      <Column>{props.campaign.status}</Column>
+      <Column>{convertToPercentage(props.campaign.targetRoas)}</Column>
+      {props.buttonText && <Button onClick={props.onClick}>{props.buttonText}</Button>}
     </ListItem>
   )
 }

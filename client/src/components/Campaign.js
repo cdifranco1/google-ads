@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-import { CampaignUpdateForm } from './CampaignListForm';
+import { CampaignUpdateForm } from './CampaignUpdateForm';
 import { CampaignItem } from './CampaignItem';
 import { campaignEdited } from '../utils';
 
@@ -9,6 +9,7 @@ import { campaignEdited } from '../utils';
 
 export const Campaign = ({campaign, editedCampaigns, setEditedCampaigns}) => {
   const [ isEditing, setIsEditing ] = useState(false)
+  const [ edited, setEdited ] = useState(false)
   const [ updatedCampaign, setupdatedCampaign ] = useState(campaign)
 
   const handleChange = (e) => {
@@ -34,6 +35,7 @@ export const Campaign = ({campaign, editedCampaigns, setEditedCampaigns}) => {
   const edit = (e) => {
     e.preventDefault()
     setIsEditing(true)
+    setEdited(true)
   }
 
   return (
@@ -41,7 +43,7 @@ export const Campaign = ({campaign, editedCampaigns, setEditedCampaigns}) => {
       {isEditing ?
         <CampaignUpdateForm onSubmit={handleSubmit} onChange={handleChange} updatedCampaign={updatedCampaign}/>
       :
-        <CampaignItem campaign={campaign} edit={edit} editedCampaigns={editedCampaigns} />}
+        <CampaignItem campaign={campaign} onClick={edit} buttonText="Edit" edited={edited} />}
     </>
   )
 }
