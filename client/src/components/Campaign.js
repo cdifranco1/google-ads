@@ -1,15 +1,19 @@
 import React, { useState } from 'react';
-import { ListItem, Column, CampaignInput, CampaignForm, CampaignInputDiv, Button } from '../styles/CampaignListStyles';
-import { convertToPercentage } from '../utils';
-import axios from 'axios';
 
-export const Campaign = ({campaign}) => {
+import { CampaignUpdateForm } from './CampaignListForm';
+import { CampaignItem } from './CampaignItem';
+import { campaignEdited } from '../utils';
+
+
+
+
+export const Campaign = ({campaign, editedCampaigns, setEditedCampaigns}) => {
   const [ isEditing, setIsEditing ] = useState(false)
-  const [ editableCampaign, setEditableCampaign ] = useState(campaign)
+  const [ updatedCampaign, setupdatedCampaign ] = useState(campaign)
 
   const handleChange = (e) => {
-    setEditableCampaign({
-      ...editableCampaign,
+    setupdatedCampaign({
+      ...updatedCampaign,
       [e.target.name]: e.target.value
     })
   }
@@ -17,37 +21,27 @@ export const Campaign = ({campaign}) => {
   const handleSubmit = (e) => {
     e.preventDefault()
     setIsEditing(false)
-    axios.post()
+
+    if (campaignEdited(editedCampaigns, updatedCampaign)){
+      setEditedCampaigns(editedCampaigns.map(el => 
+        el.id === updatedCampaign.id ? updatedCampaign : el))
+    } else {
+      setEditedCampaigns([...editedCampaigns, updatedCampaign]) 
+    }
+    console.log(editedCampaigns)
+  }
+
+  const edit = (e) => {
+    e.preventDefault()
+    setIsEditing(true)
   }
 
   return (
     <>
       {isEditing ?
-        <ListItem>
-          <CampaignForm onSubmit={handleSubmit}>
-            <CampaignInputDiv>
-              <CampaignInput onChange={handleChange} name="id" value={editableCampaign.id} />
-            </CampaignInputDiv>
-            <CampaignInputDiv>
-              <CampaignInput onChange={handleChange} name="name" value={editableCampaign.name} />
-            </CampaignInputDiv>
-            <CampaignInputDiv>
-              <CampaignInput onChange={handleChange} name="status" value={editableCampaign.status} />
-            </CampaignInputDiv>
-            <CampaignInputDiv>
-              <CampaignInput onChange={handleChange} name="targetRoas" value={editableCampaign.targetRoas}/>
-            </CampaignInputDiv>
-            <Button type="submit">Update Campaign</Button>
-          </CampaignForm>      
-        </ListItem>
+        <CampaignUpdateForm onSubmit={handleSubmit} onChange={handleChange} updatedCampaign={updatedCampaign}/>
       :
-      <ListItem style={{border: '1px solid black'}}> 
-        <Column>{campaign.id}</Column>
-        <Column>{campaign.name}</Column>
-        <Column>{campaign.status}</Column>
-        <Column>{convertToPercentage(campaign.targetRoas)}</Column>
-        <Button onClick={() => setIsEditing(true)}>Edit</Button>
-      </ListItem>}
+        <CampaignItem campaign={campaign} edit={edit} editedCampaigns={editedCampaigns} />}
     </>
   )
 }

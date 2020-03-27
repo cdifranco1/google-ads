@@ -5,7 +5,7 @@ import { headingReducer } from '../reducers/headingReducer';
 
 export const initialHeadingState = {
   id: {
-    title: 'ID #',
+    title: 'ID',
     ascending: false,
     descending: false
     }, 
@@ -36,27 +36,27 @@ export const ListHeadings = ({handleSort}) => {
   return (
     <TableHeader>
       <ListHeading onClick={() => {updateSelected('id'); handleSort('ID')}}>
-        {(tableHeadings.id.ascending && <span>&#x25B2; {' '}</span>) ||
-        (tableHeadings.id.descending && <span>&#x25bc; {' '}</span>)}
         {tableHeadings.id.title}
+        {(tableHeadings.id.ascending && <span>{' '} &#x25B2;</span>) ||
+        (tableHeadings.id.descending && <span>{' '} &#x25bc;</span>)}
       </ListHeading>
       
       <ListHeading onClick={() => {updateSelected('name'); handleSort('NAME')}}>
-        {(tableHeadings.name.ascending && <span>&#x25B2; {' '}</span>) ||
-        (tableHeadings.name.descending && <span>&#x25bc; {' '}</span>)}
         {tableHeadings.name.title}
+        {(tableHeadings.name.ascending && <span>{' '} &#x25B2;</span>) ||
+        (tableHeadings.name.descending && <span>{' '} &#x25bc;</span>)}
       </ListHeading>
       
       <ListHeading onClick={() => {updateSelected('status'); handleSort('STATUS')}}>
-        {(tableHeadings.status.ascending && <span>&#x25B2; {' '}</span>) ||
-        (tableHeadings.status.descending && <span>&#x25bc; {' '}</span>)}
         {tableHeadings.status.title}
+        {(tableHeadings.status.ascending && <span>{' '} &#x25B2;</span>) ||
+        (tableHeadings.status.descending && <span>{' '} &#x25bc;</span>)}
       </ListHeading>
       
       <ListHeading onClick={() => {updateSelected('targetRoas'); handleSort('TARGET')}}>
-        {(tableHeadings.targetRoas.ascending && <span>&#x25B2; {' '}</span>) ||
-        (tableHeadings.targetRoas.descending && <span>&#x25bc; {' '}</span>)}
         {tableHeadings.targetRoas.title}
+        {(tableHeadings.targetRoas.ascending && <span>{' '} &#x25B2;</span>) ||
+        (tableHeadings.targetRoas.descending && <span>{' '} &#x25bc;</span>)}
       </ListHeading>
       <span style={{width: '20%'}}></span>
     </TableHeader>

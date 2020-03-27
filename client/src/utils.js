@@ -7,3 +7,13 @@ export const convertToPercentage = (num) => {
   const percentage = (num * 100).toFixed(2)
   return percentage.toLocaleString() + '%'
 }
+
+
+export const campaignEdited = (arr, campaign) => {
+  let exists = false;
+  arr.forEach(el => {
+    if(el.id === campaign.id)
+    exists = true
+  })
+  return exists
+}

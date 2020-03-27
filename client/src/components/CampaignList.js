@@ -27,6 +27,10 @@ const SORTS = {
 export const CampaignList = () => {
   const [ campaigns, setCampaigns ] = useState([])
   const  [ sortKey, setSortKey ] = useState('NONE')
+  const [ editedCampaigns, setEditedCampaigns ] = useState([])
+
+  const sortFunction = SORTS[sortKey]
+  const sortedCampaigns = sortFunction([...campaigns])    
 
   const handleSort = (key) => {
     if (sortKey.includes(key) && sortKey.includes('REVERSE')){
@@ -38,14 +42,9 @@ export const CampaignList = () => {
     }
   }
 
-  const sortFunction = SORTS[sortKey]
-  const sortedCampaigns = sortFunction(campaigns)
-
-  axiosRetry(axios, { retries: 1})
-
   useEffect(() => {
     axios
-      .get(`${path}`)
+      .get(`${url}`)
       .then(res => {
         const parsedList = res.data.campaigns.map(item => {
           return {...item, targetRoas: convertToNum(item.targetRoas)}
@@ -55,13 +54,16 @@ export const CampaignList = () => {
   }, [])
 
   return (
-    <TableContainer>
-      <ListHeadings handleSort={handleSort} />
-      <ListGroup>
-      {sortedCampaigns.map(campaign =>
-        <Campaign campaign={campaign} />
-      )}
-      </ListGroup>
-    </TableContainer>
+    <>
+      <TableContainer>
+        <ListHeadings handleSort={handleSort} />
+        <ListGroup>
+        {sortedCampaigns.map(el =>
+          <Campaign key={el.id} campaign={el} editedCampaigns={editedCampaigns} setEditedCampaigns={setEditedCampaigns} />
+        )}
+        </ListGroup>
+      </TableContainer>
+      <button type="submit">Submit Updated Campaigns</button>
+    </>
   )
 }

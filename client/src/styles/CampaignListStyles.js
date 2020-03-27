@@ -25,7 +25,9 @@ export const ListItem = styled.div`
   display: flex;
   align-items: center;
   width: 100%;
+  background-color: ${props => props.edited === true ? '#D3D3D3' : 'none'}
 `
+
 export const Column = styled.p`
   width: 20%;
   text-align: left;
@@ -33,8 +35,15 @@ export const Column = styled.p`
 
 //Table header styles
 
-export const TableHeader = styled(ListItem)`
-  background-color: #2F4F4F;
+export const TableHeader = styled.div`
+border-top: 1px solid #A9A9A9;
+border-bottom: 1px solid #A9A9A9;
+max-width: 100%;
+padding: 0.5%;
+display: flex;
+align-items: center;
+width: 100%;
+background-color: #2F4F4F;  
 `
 
 export const ListHeading = styled(Column)`
