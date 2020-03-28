@@ -10,6 +10,9 @@ export const CampaignPageContainer = styled.div`
   display: flex;
   justify-content: space-between;
   padding: 2%;
+  @media (max-width: 860px) {
+    flex-direction: column;
+  }
 `
 export const FlexContainer = styled.div`
   border: 1px solid black;
@@ -117,8 +120,14 @@ export const LargeCampaignInputDiv = styled.div`
 `
 
 export const Button = styled.button`
-  width: 50%;
-  padding: 1%;
+  padding: 2%;
+  border-radius: 5px;
+  border: 1px solid black;
+  box-shadow: 2px 2px 3px black;
+  background-color: #708090;
+  color: #FFFFFF;
+  width: 60%;
+  padding: 2%;
 `
 
 //Nav Styles
@@ -140,5 +149,28 @@ export const HorizontalSpacer = styled.div`
   margin-left: 2%; 
 `
 export const VerticalSpacer = styled.div`
-  margin-bottom: 2%; 
+  margin-bottom: ${props => props.mb} 
+`
+
+export const LoginFormDiv = styled.div`
+  display: flex;
+  justify-content: center;
+`
+
+export const LoginForm = styled.form`
+  display: flex;
+  flex-direction: column;
+  width: 40%;
+`
+
+export const LoginInput = styled.input`
+  border-radius: 5px;
+  padding: 3%;
+  &:focus {
+    border-radius: 0;
+  }
+`
+
+export const LoginButton = styled(Button)`
+  width: 100%;
 `

@@ -43,7 +43,7 @@ export const CampaignList = (props) => {
     }
   }
 
-  useEffect(() => {
+  const fetchData = () => {
     axios
       .get(`https://fast-refuge-34078.herokuapp.com/api/get-campaigns`)
       .then(res => {
@@ -52,10 +52,22 @@ export const CampaignList = (props) => {
         })
         setCampaigns(parsedList)
       })
+  }
+
+  useEffect(() => {
+    fetchData()
   }, [])
 
   const removeCampaignUpdates = (campaignId) => {
     setEditedCampaigns(editedCampaigns.filter(el => el.id !== campaignId))
+  }
+
+  const updateCampaigns = () => {
+    console.log({campaigns: editedCampaigns})
+    axios
+      .put(`https://fast-refuge-34078.herokuapp.com/api/bulk_update_target`, {campaigns: editedCampaigns})
+      .then(res => console.log(res))
+    fetchData()
   }
 
   return (
@@ -72,7 +84,7 @@ export const CampaignList = (props) => {
         ? 
         <>
           <HorizontalSpacer />
-          <UpdatedCampaigns editedCampaigns={editedCampaigns} removeCampaignUpdates={removeCampaignUpdates} /> 
+          <UpdatedCampaigns editedCampaigns={editedCampaigns} updateCampaigns={updateCampaigns} removeCampaignUpdates={removeCampaignUpdates} /> 
         </>
         :
         null}
