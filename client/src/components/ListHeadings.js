@@ -1,5 +1,5 @@
 import React, { useState, useReducer } from 'react';
-import { ListHeading, TableHeader } from '../styles/CampaignListStyles'
+import { SmallListHeading, MediumListHeading, LargeListHeading, TableHeader } from '../styles/CampaignListStyles'
 import { headingReducer } from '../reducers/headingReducer';
 
 
@@ -35,30 +35,30 @@ export const ListHeadings = ({handleSort}) => {
 
   return (
     <TableHeader>
-      <ListHeading onClick={() => {updateSelected('id'); handleSort('ID')}}>
+      <MediumListHeading onClick={() => {updateSelected('id'); handleSort('ID')}}>
         {tableHeadings.id.title}
         {(tableHeadings.id.ascending && <span>{' '} &#x25B2;</span>) ||
         (tableHeadings.id.descending && <span>{' '} &#x25bc;</span>)}
-      </ListHeading>
+      </MediumListHeading>
       
-      <ListHeading onClick={() => {updateSelected('name'); handleSort('NAME')}}>
+      <LargeListHeading onClick={() => {updateSelected('name'); handleSort('NAME')}}>
         {tableHeadings.name.title}
         {(tableHeadings.name.ascending && <span>{' '} &#x25B2;</span>) ||
         (tableHeadings.name.descending && <span>{' '} &#x25bc;</span>)}
-      </ListHeading>
+      </LargeListHeading>
       
-      <ListHeading onClick={() => {updateSelected('status'); handleSort('STATUS')}}>
+      <MediumListHeading onClick={() => {updateSelected('status'); handleSort('STATUS')}}>
         {tableHeadings.status.title}
         {(tableHeadings.status.ascending && <span>{' '} &#x25B2;</span>) ||
         (tableHeadings.status.descending && <span>{' '} &#x25bc;</span>)}
-      </ListHeading>
+      </MediumListHeading>
       
-      <ListHeading onClick={() => {updateSelected('targetRoas'); handleSort('TARGET')}}>
+      <MediumListHeading onClick={() => {updateSelected('targetRoas'); handleSort('TARGET')}}>
         {tableHeadings.targetRoas.title}
         {(tableHeadings.targetRoas.ascending && <span>{' '} &#x25B2;</span>) ||
         (tableHeadings.targetRoas.descending && <span>{' '} &#x25bc;</span>)}
-      </ListHeading>
-      <span style={{width: '20%'}}></span>
+      </MediumListHeading>
+      <SmallListHeading/>
     </TableHeader>
   )
 }

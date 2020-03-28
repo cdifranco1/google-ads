@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { ListGroup, TableContainer } from '../styles/CampaignListStyles'
+import { ListGroup, TableContainer, HorizontalSpacer, VerticalSpacer, CampaignPageContainer } from '../styles/CampaignListStyles'
 import { ListHeadings } from './ListHeadings';
 import { convertToNum } from '../utils'
 import { Campaign } from './Campaign'
@@ -55,19 +55,23 @@ export const CampaignList = (props) => {
   }, [])
 
   return (
-    <>
-      <Route path={`${path}/edited`}>
-        <UpdatedCampaigns editedCampaigns={editedCampaigns} />
-      </Route>
-        <TableContainer>
-          <ListHeadings handleSort={handleSort} />
-          <ListGroup>
-          {sortedCampaigns.map(el =>
-            <Campaign key={el.id} campaign={el} editedCampaigns={editedCampaigns} setEditedCampaigns={setEditedCampaigns} />
-          )}
-          </ListGroup>
-        </TableContainer>
-        <Link to={`${url}/edited`}>View Updated Campaigns</Link>
-    </>
+    <CampaignPageContainer>
+      <TableContainer>
+        <ListHeadings handleSort={handleSort} />
+        <ListGroup>
+        {sortedCampaigns.map(el =>
+          <Campaign key={el.id} campaign={el} editedCampaigns={editedCampaigns} setEditedCampaigns={setEditedCampaigns} />
+        )}
+        </ListGroup>
+      </TableContainer>
+      {editedCampaigns.length 
+        ? 
+        <>
+          <HorizontalSpacer />
+          <UpdatedCampaigns editedCampaigns={editedCampaigns} /> 
+        </>
+        :
+        null}
+    </CampaignPageContainer>
   )
 }
