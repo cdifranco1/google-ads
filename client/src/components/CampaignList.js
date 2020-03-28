@@ -3,15 +3,13 @@ import { ListGroup, TableContainer } from '../styles/CampaignListStyles'
 import { ListHeadings } from './ListHeadings';
 import { convertToNum } from '../utils'
 import { Campaign } from './Campaign'
+import { UpdatedCampaigns } from './UpdatedCampaigns';
 
 import { sortBy } from 'lodash';
 import axios from 'axios';
-import axiosRetry from 'axios-retry';
-import { UpdatedCampaigns } from './UpdatedCampaigns';
+import { Route, Link, useRouteMatch } from 'react-router-dom';
 
 
-const path = 'http://localhost:8000'
-const url = `https://fast-refuge-34078.herokuapp.com/api/get-campaigns`
 
 const SORTS = {
   NONE: list => list, 
@@ -25,7 +23,9 @@ const SORTS = {
   TARGET_REVERSE: list => sortBy(list, 'targetRoas').reverse()
 }
 
-export const CampaignList = () => {
+export const CampaignList = (props) => {
+  const { path, url } = useRouteMatch()
+  console.log(path, url)
   const [ campaigns, setCampaigns ] = useState([])
   const  [ sortKey, setSortKey ] = useState('NONE')
   const [ editedCampaigns, setEditedCampaigns ] = useState([])
@@ -45,7 +45,7 @@ export const CampaignList = () => {
 
   useEffect(() => {
     axios
-      .get(`${url}`)
+      .get(`https://fast-refuge-34078.herokuapp.com/api/get-campaigns`)
       .then(res => {
         const parsedList = res.data.campaigns.map(item => {
           return {...item, targetRoas: convertToNum(item.targetRoas)}
@@ -56,15 +56,18 @@ export const CampaignList = () => {
 
   return (
     <>
-      <TableContainer>
-        <ListHeadings handleSort={handleSort} />
-        <ListGroup>
-        {sortedCampaigns.map(el =>
-          <Campaign key={el.id} campaign={el} editedCampaigns={editedCampaigns} setEditedCampaigns={setEditedCampaigns} />
-        )}
-        </ListGroup>
-      </TableContainer>
-      <UpdatedCampaigns editedCampaigns={editedCampaigns}/>
+      <Route path={`${path}/edited`}>
+        <UpdatedCampaigns editedCampaigns={editedCampaigns} />
+      </Route>
+        <TableContainer>
+          <ListHeadings handleSort={handleSort} />
+          <ListGroup>
+          {sortedCampaigns.map(el =>
+            <Campaign key={el.id} campaign={el} editedCampaigns={editedCampaigns} setEditedCampaigns={setEditedCampaigns} />
+          )}
+          </ListGroup>
+        </TableContainer>
+        <Link to={`${url}/edited`}>View Updated Campaigns</Link>
     </>
   )
 }

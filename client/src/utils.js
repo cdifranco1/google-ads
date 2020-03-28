@@ -9,7 +9,7 @@ export const convertToPercentage = (num) => {
 }
 
 
-export const campaignEdited = (arr, campaign) => {
+export const campaignPreviouslyEdited = (arr, campaign) => {
   let exists = false;
   arr.forEach(el => {
     if(el.id === campaign.id)

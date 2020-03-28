@@ -2,15 +2,14 @@ import React, { useState } from 'react';
 
 import { CampaignUpdateForm } from './CampaignUpdateForm';
 import { CampaignItem } from './CampaignItem';
-import { campaignEdited } from '../utils';
+import { campaignPreviouslyEdited } from '../utils';
 
 
-
-
-export const Campaign = ({campaign, editedCampaigns, setEditedCampaigns}) => {
+export const Campaign = (props) => {
   const [ isEditing, setIsEditing ] = useState(false)
   const [ edited, setEdited ] = useState(false)
-  const [ updatedCampaign, setupdatedCampaign ] = useState(campaign)
+  const [ campaign, setCampaign ] = useState(props.campaign)
+  const [ updatedCampaign, setupdatedCampaign ] = useState(props.campaign)
 
   const handleChange = (e) => {
     setupdatedCampaign({
@@ -23,13 +22,19 @@ export const Campaign = ({campaign, editedCampaigns, setEditedCampaigns}) => {
     e.preventDefault()
     setIsEditing(false)
 
-    if (campaignEdited(editedCampaigns, updatedCampaign)){
-      setEditedCampaigns(editedCampaigns.map(el => 
+    if (campaignPreviouslyEdited(props.editedCampaigns, updatedCampaign)){
+      props.setEditedCampaigns(props.editedCampaigns.map(el => 
         el.id === updatedCampaign.id ? updatedCampaign : el))
     } else {
-      setEditedCampaigns([...editedCampaigns, updatedCampaign]) 
+      props.setEditedCampaigns([...props.editedCampaigns, updatedCampaign]) 
     }
-    console.log(editedCampaigns)
+
+    setCampaign(updatedCampaign)
+  }
+
+  const removeCampaignEdits = (e) => {
+    e.preventDefault()
+
   }
 
   const edit = (e) => {

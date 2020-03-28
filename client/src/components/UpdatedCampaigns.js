@@ -5,6 +5,7 @@ import { CampaignItem } from './CampaignItem';
 
 
 export const UpdatedCampaigns = (props) => {
+  console.log(props)
   return (
     <>
       <ListHeadings/>
