@@ -11,7 +11,7 @@ export const CampaignItem = (props) => {
       <MediumColumnP>{props.campaign.status}</MediumColumnP>
       <MediumColumnP>{convertToPercentage(props.campaign.targetRoas)}</MediumColumnP>
       <SmallColumnDiv>
-      {props.buttonText && <Button onClick={props.onClick}>{props.buttonText}</Button>}
+        {props.buttonText && <Button onClick={props.onClick}>{props.buttonText}</Button>}
       </SmallColumnDiv>
     </ListItem>
   )

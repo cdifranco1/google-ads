@@ -54,6 +54,10 @@ export const CampaignList = (props) => {
       })
   }, [])
 
+  const removeCampaignUpdates = (campaignId) => {
+    setEditedCampaigns(editedCampaigns.filter(el => el.id !== campaignId))
+  }
+
   return (
     <CampaignPageContainer>
       <TableContainer>
@@ -68,7 +72,7 @@ export const CampaignList = (props) => {
         ? 
         <>
           <HorizontalSpacer />
-          <UpdatedCampaigns editedCampaigns={editedCampaigns} /> 
+          <UpdatedCampaigns editedCampaigns={editedCampaigns} removeCampaignUpdates={removeCampaignUpdates} /> 
         </>
         :
         null}

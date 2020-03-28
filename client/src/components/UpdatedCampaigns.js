@@ -10,7 +10,7 @@ export const UpdatedCampaigns = (props) => {
       <h1>Updated Campaigns</h1>
       <ListHeadings/>
       {props.editedCampaigns.map(el => 
-        <CampaignItem edited buttonText='Remove Changes' campaign={el} />
+        <CampaignItem edited buttonText='Remove Changes' campaign={el} onClick={() => props.removeCampaignUpdates(el.id)} />
       )}
     </TableContainer>
   )

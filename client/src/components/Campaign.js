@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 
 import { CampaignUpdateForm } from './CampaignUpdateForm';
 import { CampaignItem } from './CampaignItem';
@@ -18,6 +18,7 @@ export const Campaign = (props) => {
     })
   }
 
+  //Closes editing form and updates edited campaign list. Sets current campaign with updated fields.
   const handleSubmit = (e) => {
     e.preventDefault()
     setIsEditing(false)
@@ -30,24 +31,28 @@ export const Campaign = (props) => {
     }
 
     setCampaign(updatedCampaign)
+    setEdited(true)
   }
 
-  const removeCampaignEdits = (e) => {
-    e.preventDefault()
+  useEffect(() => {
+    if (!props.editedCampaigns.find(el => el.id === campaign.id)){
+      setCampaign(props.campaign)
+      setEdited(false)
+    }
+  }, [props.editedCampaigns])
 
-  }
+
 
   const edit = (e) => {
     e.preventDefault()
     setIsEditing(true)
-    setEdited(true)
   }
 
   return (
     <>
       {isEditing ?
         <CampaignUpdateForm onSubmit={handleSubmit} onChange={handleChange} updatedCampaign={updatedCampaign}/>
-      :
+        :
         <CampaignItem campaign={campaign} onClick={edit} buttonText="Edit" edited={edited} />}
     </>
   )
