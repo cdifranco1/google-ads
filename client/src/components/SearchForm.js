@@ -1,5 +1,5 @@
 import React from 'react';
-import { SearchLabel } from '../styles/CampaignListStyles'
+import { SearchLabel, SearchFormContainer, SearchInput } from '../styles/CampaignListStyles'
 
 export const SearchForm = (props) => {
   const handleSearch = (e) => {
@@ -7,9 +7,9 @@ export const SearchForm = (props) => {
   }
 
   return (
-    <form style={{display: 'flex'}}>
+    <SearchFormContainer>
       <SearchLabel htmlFor="search">Search by Name: </SearchLabel>
-      <input type="text" name="search" onChange={handleSearch} value={props.searchTerm} placeholder="NFL Matchups" />
-    </form>
+      <SearchInput type="text" name="search" onChange={handleSearch} value={props.searchTerm} placeholder="NFL Matchups" />
+    </SearchFormContainer>
   )
 }

@@ -214,6 +214,18 @@ export const UpdateCampaignsButton = styled(Button)`
 export const SearchLabel = styled.label`
   font-size: 1.5rem;
   font-weight: 600;
-  padding-right: 2%;
+  width: 15%;
+`
+export const SearchInput = styled.input`
+  width: 20%;
+  padding: 0.5% 0;
+  font-size: 1.25rem;
+`
+
+export const SearchFormContainer = styled.form`
+  width: 100%;
+  display: flex;
+  margin-bottom: 1%;
+  align-items: center;
 `
 

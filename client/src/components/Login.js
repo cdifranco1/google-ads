@@ -23,7 +23,8 @@ export const Login = ({setLoggedIn, loggedIn}) => {
     axios
       .post(`https://fast-refuge-34078.herokuapp.com/api/authorization`, user)
       .then(res => {
-        setLoggedIn(res.data.auth)
+        // setLoggedIn(res.data.auth)
+        localStorage.setItem('loggedIn', res.data.auth)
         history.push('/campaigns')
       })
       .catch(err => console.log(err))
