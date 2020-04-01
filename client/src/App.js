@@ -17,7 +17,7 @@ function App() {
       <Nav />
       <Container>
         <Route exact path='/'>
-          <Login setLoggedIn={setLoggedIn} />
+          <Login loggedIn={loggedIn} setLoggedIn={setLoggedIn} />
         </Route>
         <PrivateRoute loggedIn={loggedIn} path='/campaigns' component={CampaignList}/>
       </Container>

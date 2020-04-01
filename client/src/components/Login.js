@@ -4,7 +4,7 @@ import { LoginFormDiv, LoginForm, LoginInput, LoginButton, VerticalSpacer } from
 import axios from 'axios'
 
 
-export const Login = ({setLoggedIn}) => {
+export const Login = ({setLoggedIn, loggedIn}) => {
   const history = useHistory()
   const [ user, setUser ] = useState({
     username: '',
@@ -20,15 +20,17 @@ export const Login = ({setLoggedIn}) => {
 
   const handleSubmit = (e) => {
     e.preventDefault()
-    console.log(user)
     axios
       .post(`https://fast-refuge-34078.herokuapp.com/api/authorization`, user)
       .then(res => {
-        setLoggedIn(res.data.auth)
+        // setLoggedIn(res.data.auth)
+        localStorage.setItem('loggedIn', res.data.auth)
         history.push('/campaigns')
       })
       .catch(err => console.log(err))
   }
+
+
 
   return (
     <>

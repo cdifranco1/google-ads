@@ -37,7 +37,7 @@ export const Campaign = (props) => {
       setcampaign(props.campaign)
       setEdited(false)
     }
-  }, [props.editedCampaigns])
+  }, [props.editedCampaigns, props.campaign])
 
   const edit = () => {
     setIsEditing(true)

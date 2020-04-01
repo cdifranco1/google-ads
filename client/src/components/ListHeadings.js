@@ -1,4 +1,4 @@
-import React, { useState, useReducer } from 'react';
+import React, { useReducer } from 'react';
 import { SmallListHeading, MediumListHeading, LargeListHeading, TableHeader } from '../styles/CampaignListStyles'
 import { headingReducer } from '../reducers/headingReducer';
 
@@ -27,7 +27,6 @@ export const initialHeadingState = {
 }
 
 export const ListHeadings = ({handleSort, ...props}) => {
-  console.log(props)
   const [ tableHeadings, dispatch ] = useReducer(headingReducer, initialHeadingState)
   const updateSelected = (heading) => {
     dispatch({ type: 'SELECT_COLUMN', payload: heading})

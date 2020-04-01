@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { convertToPercentage } from '../utils';
 
 import { ListItem, LargeColumnP, SmallColumnDiv, MediumColumnP, Button } from '../styles/CampaignListStyles';

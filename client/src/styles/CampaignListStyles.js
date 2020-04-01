@@ -210,3 +210,10 @@ export const UpdateCampaignsButton = styled(Button)`
   box-shadow: 1px 1px 2px black;
 `
 
+
+export const SearchLabel = styled.label`
+  font-size: 1.5rem;
+  font-weight: 600;
+  padding-right: 2%;
+`
+
