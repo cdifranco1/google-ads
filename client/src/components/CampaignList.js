@@ -78,7 +78,7 @@ export const CampaignList = (props) => {
     <h2>Loading data...</h2> :
     (<CampaignPageContainer>
       <TableContainer>
-        <ListHeadings handleSort={handleSort} />
+        <ListHeadings handleSort={handleSort} sortable hover />
         <ListGroup>
         {sortedCampaigns.map(el =>
           <Campaign key={el.id} campaign={el} editedCampaigns={editedCampaigns} setEditedCampaigns={setEditedCampaigns} />

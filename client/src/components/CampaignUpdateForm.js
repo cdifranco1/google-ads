@@ -5,16 +5,16 @@ export const CampaignUpdateForm = (props) => {
   return (
     <ListItem>
       <CampaignForm onSubmit={props.onSubmit}>
-        <MediumColumnP>{props.updatedCampaign.id}</MediumColumnP>
+        <MediumColumnP>{props.campaign.id}</MediumColumnP>
         <LargeCampaignInputDiv>
-          <CampaignInput onChange={props.onChange} name="name" value={props.updatedCampaign.name} />
+          <CampaignInput onChange={props.onChange} name="name" value={props.campaign.name} />
         </LargeCampaignInputDiv>
-        <MediumColumnP>{props.updatedCampaign.status}</MediumColumnP>
+        <MediumColumnP>{props.campaign.status}</MediumColumnP>
         <MediumCampaignInputDiv>
-          <CampaignInput onChange={props.onChange} name="targetRoas" value={props.updatedCampaign.targetRoas}/>
+          <CampaignInput onChange={props.onChange} name="targetRoas" value={props.campaign.targetRoas}/>
         </MediumCampaignInputDiv>
         <CampaignFormButtonDiv>
-          <Button type="submit">Update Campaign</Button>
+          <Button type="submit">Update</Button>
         </CampaignFormButtonDiv>
       </CampaignForm>      
     </ListItem>

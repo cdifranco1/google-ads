@@ -15,10 +15,14 @@ export const CampaignPageContainer = styled.div`
   }
 `
 export const FlexContainer = styled.div`
-  border: 1px solid black;
   display: flex;
 `
 
+export const FlexCenter = styled.div`
+  display: flex;
+  justify-content: center;
+  padding: 2%;
+`
 
 //List item styles
 
@@ -39,7 +43,7 @@ export const ListItem = styled.div`
   display: flex;
   align-items: center;
   width: 100%;
-  background-color: ${props => props.edited === true ? '#D3D3D3' : 'none'}
+  background-color: ${props => props.edited === true ? '#D3D3D3' : '#FFFFFF'}
 `
 
 export const LargeColumnP = styled.p`
@@ -79,9 +83,14 @@ export const SmallListHeading = styled(SmallColumnP)`
   font-size: 1.5rem;
   font-weight: 500;
   color: #FFFAFA;
-  &:hover { 
-    cursor: pointer;
-  } 
+  ${props => 
+    props.hover 
+    ?
+    `&:hover { 
+      cursor: pointer;
+    }`
+    :
+    null}
 `
 export const MediumListHeading = styled(SmallListHeading)`
   width: 17.5%;
@@ -120,15 +129,22 @@ export const LargeCampaignInputDiv = styled.div`
 `
 
 export const Button = styled.button`
-  padding: 2%;
+  overflow: hidden;
+  padding: 2% 1%;
   border-radius: 5px;
-  border: 1px solid black;
-  box-shadow: 2px 2px 3px black;
-  background-color: #708090;
-  color: #FFFFFF;
+  border: 2px solid black;
+  color: black;
   width: 60%;
-  padding: 2%;
 `
+
+// export const Button = styled.button`
+//   overflow: hidden;
+//   padding: 2%;
+//   border-radius: 5px;
+//   border: 2px solid grey;
+//   color: black;
+//   width: 50%;
+// `
 
 //Nav Styles
 
@@ -165,12 +181,32 @@ export const LoginForm = styled.form`
 
 export const LoginInput = styled.input`
   border-radius: 5px;
-  padding: 3%;
+  border: 1px solid grey;
+  font-size: 1.5rem;
+  padding: 2.5%;
   &:focus {
     border-radius: 0;
   }
 `
 
 export const LoginButton = styled(Button)`
-  width: 100%;
+  font-size: 1.5rem;
+  font-weight: 700;
+  margin: 2% auto;
+  padding: 2%;
+  border-radius: 10px;
+  border: 1px solid grey;
+  box-shadow: 2px 2px 3px grey;
+  background-color: #708090;
+  color: #FFFFFF;
+  padding: 2%;
+  width: 40%
 `
+
+export const UpdateCampaignsButton = styled(Button)`
+  font-size: 1.5rem;
+  width: 50%;
+  border: 2px solid black;
+  box-shadow: 1px 1px 2px black;
+`
+

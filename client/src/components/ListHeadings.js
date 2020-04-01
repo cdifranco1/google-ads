@@ -26,34 +26,50 @@ export const initialHeadingState = {
     }
 }
 
-export const ListHeadings = ({handleSort}) => {
+export const ListHeadings = ({handleSort, ...props}) => {
+  console.log(props)
   const [ tableHeadings, dispatch ] = useReducer(headingReducer, initialHeadingState)
-  
   const updateSelected = (heading) => {
     dispatch({ type: 'SELECT_COLUMN', payload: heading})
   }
 
   return (
     <TableHeader>
-      <MediumListHeading onClick={() => {updateSelected('id'); handleSort('ID')}}>
+      <MediumListHeading hover={props.hover} onClick={() => {
+        if (props.sortable){
+          updateSelected('id'); 
+          handleSort('ID')
+        }}}>
         {tableHeadings.id.title}
         {(tableHeadings.id.ascending && <span>{' '} &#x25B2;</span>) ||
         (tableHeadings.id.descending && <span>{' '} &#x25bc;</span>)}
       </MediumListHeading>
       
-      <LargeListHeading onClick={() => {updateSelected('name'); handleSort('NAME')}}>
+      <LargeListHeading  hover={props.hover} onClick={() => {
+        if (props.sortable){
+          updateSelected('name'); 
+          handleSort('NAME')
+        }}}>
         {tableHeadings.name.title}
         {(tableHeadings.name.ascending && <span>{' '} &#x25B2;</span>) ||
         (tableHeadings.name.descending && <span>{' '} &#x25bc;</span>)}
       </LargeListHeading>
       
-      <MediumListHeading onClick={() => {updateSelected('status'); handleSort('STATUS')}}>
+      <MediumListHeading hover={props.hover} onClick={() => {
+        if (props.sortable){
+          updateSelected('status'); 
+          handleSort('STATUS')
+        }}}>
         {tableHeadings.status.title}
         {(tableHeadings.status.ascending && <span>{' '} &#x25B2;</span>) ||
         (tableHeadings.status.descending && <span>{' '} &#x25bc;</span>)}
       </MediumListHeading>
       
-      <MediumListHeading onClick={() => {updateSelected('targetRoas'); handleSort('TARGET')}}>
+      <MediumListHeading hover={props.hover} onClick={() => {
+        if (props.sortable){
+          updateSelected('targetRoas'); 
+          handleSort('TARGET')
+        }}}>
         {tableHeadings.targetRoas.title}
         {(tableHeadings.targetRoas.ascending && <span>{' '} &#x25B2;</span>) ||
         (tableHeadings.targetRoas.descending && <span>{' '} &#x25bc;</span>)}
