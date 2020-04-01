@@ -8,11 +8,10 @@ import { campaignPreviouslyEdited } from '../utils';
 export const Campaign = (props) => {
   const [ isEditing, setIsEditing ] = useState(false)
   const [ edited, setEdited ] = useState(false)
-  const [ campaign, setCampaign ] = useState(props.campaign)
-  const [ updatedCampaign, setupdatedCampaign ] = useState(props.campaign)
+  const [ updatedCampaign, setUpdatedCampaign ] = useState(props.campaign)
 
   const handleChange = (e) => {
-    setupdatedCampaign({
+    setUpdatedCampaign({
       ...updatedCampaign,
       [e.target.name]: e.target.value
     })
@@ -29,22 +28,19 @@ export const Campaign = (props) => {
     } else {
       props.setEditedCampaigns([...props.editedCampaigns, updatedCampaign]) 
     }
-
-    setCampaign(updatedCampaign)
+    
     setEdited(true)
   }
 
+
   useEffect(() => {
-    if (!props.editedCampaigns.find(el => el.id === campaign.id)){
-      setCampaign(props.campaign)
+    if (!props.editedCampaigns.find(el => el.id === props.campaign.id)){
+      setUpdatedCampaign(props.campaign)
       setEdited(false)
     }
   }, [props.editedCampaigns])
 
-
-
-  const edit = (e) => {
-    e.preventDefault()
+  const edit = () => {
     setIsEditing(true)
   }
 
@@ -53,7 +49,7 @@ export const Campaign = (props) => {
       {isEditing ?
         <CampaignUpdateForm onSubmit={handleSubmit} onChange={handleChange} updatedCampaign={updatedCampaign}/>
         :
-        <CampaignItem campaign={campaign} onClick={edit} buttonText="Edit" edited={edited} />}
+        <CampaignItem campaign={props.campaign} onClick={edit} buttonText="Edit" edited={edited} />}
     </>
   )
 }

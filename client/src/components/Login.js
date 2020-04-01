@@ -1,11 +1,14 @@
 import React, { useState } from 'react';
+import { useHistory } from 'react-router-dom';
 import { LoginFormDiv, LoginForm, LoginInput, LoginButton, VerticalSpacer } from '../styles/CampaignListStyles';
+import axios from 'axios'
 
 
-export const Login = () => {
+export const Login = ({setLoggedIn}) => {
+  const history = useHistory()
   const [ user, setUser ] = useState({
-    username: '',
-    password: ''
+    username: 'vs_ppc',
+    password: 'vsppc2020',
   })
 
   const handleChange = (e) => {
@@ -15,8 +18,16 @@ export const Login = () => {
     })
   }
 
-  const handleSubmit = () => {
+  const handleSubmit = (e) => {
+    e.preventDefault()
     console.log(user)
+    axios
+      .post(`https://fast-refuge-34078.herokuapp.com/api/authorization`, user)
+      .then(res => {
+        setLoggedIn(res.data.auth)
+        history.push('/campaigns')
+      })
+      .catch(err => console.log(err))
   }
 
   return (
@@ -26,7 +37,7 @@ export const Login = () => {
         <LoginForm onSubmit={handleSubmit} style={{display: 'flex', flexDirection: 'column'}}>
           <LoginInput name="username" type="text" placeholder="Username" value={user.username} onChange={handleChange}/>
           <VerticalSpacer mb="3px" />
-          <LoginInput name="password" type="text" placeholder="Password" value={user.password} onChange={handleChange}/>
+          <LoginInput name="password" type="password" placeholder="Password" value={user.password} onChange={handleChange}/>
           <VerticalSpacer mb="5px" />
           <LoginButton type="submit">Login</LoginButton>
         </LoginForm>

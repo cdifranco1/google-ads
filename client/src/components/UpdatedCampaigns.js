@@ -13,7 +13,7 @@ export const UpdatedCampaigns = (props) => {
         <CampaignItem edited buttonText='Remove Changes' campaign={el} onClick={() => props.removeCampaignUpdates(el.id)} />
       )}
       <VerticalSpacer />
-      <Button onClick={props.updateCampaigns}>Submit Campaign Updates</Button>
+      <Button onClick={props.submitUpdates} type="submit">Submit Campaign Updates</Button>
     </TableContainer>
   )
 }

@@ -24,11 +24,10 @@ const SORTS = {
 }
 
 export const CampaignList = (props) => {
-  const { path, url } = useRouteMatch()
-  console.log(path, url)
   const [ campaigns, setCampaigns ] = useState([])
-  const  [ sortKey, setSortKey ] = useState('NONE')
+  const [ sortKey, setSortKey ] = useState('NONE')
   const [ editedCampaigns, setEditedCampaigns ] = useState([])
+  const [ fetching, setFetching ] = useState(false)
 
   const sortFunction = SORTS[sortKey]
   const sortedCampaigns = sortFunction([...campaigns])    
@@ -44,6 +43,7 @@ export const CampaignList = (props) => {
   }
 
   const fetchData = () => {
+    setFetching(true)
     axios
       .get(`https://fast-refuge-34078.herokuapp.com/api/get-campaigns`)
       .then(res => {
@@ -51,6 +51,7 @@ export const CampaignList = (props) => {
           return {...item, targetRoas: convertToNum(item.targetRoas)}
         })
         setCampaigns(parsedList)
+        setFetching(false)
       })
   }
 
@@ -62,16 +63,20 @@ export const CampaignList = (props) => {
     setEditedCampaigns(editedCampaigns.filter(el => el.id !== campaignId))
   }
 
-  const updateCampaigns = () => {
-    console.log({campaigns: editedCampaigns})
+  const submitUpdates = () => {
     axios
       .put(`https://fast-refuge-34078.herokuapp.com/api/bulk_update_target`, {campaigns: editedCampaigns})
-      .then(res => console.log(res))
-    fetchData()
+      .then(res => {
+        console.log(res)
+        setEditedCampaigns([])
+      })
+      .then(() => {fetchData()})
   }
 
   return (
-    <CampaignPageContainer>
+    fetching ?
+    <h2>Loading data...</h2> :
+    (<CampaignPageContainer>
       <TableContainer>
         <ListHeadings handleSort={handleSort} />
         <ListGroup>
@@ -84,10 +89,10 @@ export const CampaignList = (props) => {
         ? 
         <>
           <HorizontalSpacer />
-          <UpdatedCampaigns editedCampaigns={editedCampaigns} updateCampaigns={updateCampaigns} removeCampaignUpdates={removeCampaignUpdates} /> 
+          <UpdatedCampaigns editedCampaigns={editedCampaigns} submitUpdates={submitUpdates} removeCampaignUpdates={removeCampaignUpdates} /> 
         </>
         :
-        null}
-    </CampaignPageContainer>
+      null}
+    </CampaignPageContainer>)
   )
 }
