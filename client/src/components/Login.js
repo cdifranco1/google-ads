@@ -7,8 +7,8 @@ import axios from 'axios'
 export const Login = ({setLoggedIn}) => {
   const history = useHistory()
   const [ user, setUser ] = useState({
-    username: 'vs_ppc',
-    password: 'vsppc2020',
+    username: '',
+    password: '',
   })
 
   const handleChange = (e) => {
