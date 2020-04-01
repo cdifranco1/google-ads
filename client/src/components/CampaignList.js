@@ -69,7 +69,6 @@ export const CampaignList = (props) => {
     axios
       .put(`https://fast-refuge-34078.herokuapp.com/api/bulk_update_target`, {campaigns: editedCampaigns})
       .then(res => {
-        console.log(res)
         setEditedCampaigns([])
       })
       .then(() => {fetchData()})
